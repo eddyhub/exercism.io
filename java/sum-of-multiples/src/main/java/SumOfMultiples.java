@@ -1,11 +1,23 @@
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 class SumOfMultiples {
 
+    int sum;
+
     SumOfMultiples(int number, int[] set) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+        sum = Arrays
+                .stream(set)
+                .mapToObj(i -> IntStream.rangeClosed(1, number / i).parallel().map(j -> j * i).boxed().toArray(Integer[]::new))
+                .flatMap(i -> Arrays.stream(i))
+                .distinct()
+                .filter(i -> i < number)
+                .mapToInt(Integer::valueOf)
+                .sum();
     }
 
     int getSum() {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+        return sum;
     }
 
 }
