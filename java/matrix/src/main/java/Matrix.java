@@ -1,36 +1,22 @@
 import java.util.Arrays;
-import java.util.function.IntFunction;
 
 public class Matrix {
 
-    int rowsCount;
-    int columnsCount;
     int[][] matrix;
 
     public Matrix(String matrixAsString) {
-        String[] rows = matrixAsString.split("\n");
-        String[] columns = rows[0].split(" ");
-        rowsCount = rows.length;
-        columnsCount = columns.length;
-        matrix = new int[rowsCount][columnsCount];
-        for(int i = 0; i < rowsCount; i++) {
-            String[] row = rows[i].split(" ");
-            for (int j = 0; j < columnsCount; j++) {
-                matrix[i][j] = Integer.parseInt(row[j]);
-            }
-        }
-    }
-
-    public int[] strToIntArray(String[] str) {
-        return Arrays.stream(str).mapToInt(Integer::parseInt).toArray();
+        matrix = Arrays.stream(matrixAsString.split("\n"))
+                .map(r -> r.split(" "))
+                .map(strArray -> Arrays.stream(strArray).mapToInt(Integer::parseInt).toArray())
+                .toArray(int[][]::new);
     }
 
     public int getRowsCount() {
-        return rowsCount;
+        return matrix.length;
     }
 
     public int getColumnsCount() {
-        return columnsCount;
+        return matrix[0].length;
     }
 
     public int[] getRow(int i) {
@@ -38,10 +24,6 @@ public class Matrix {
     }
 
     public int[] getColumn(int i) {
-        int[] column = new int[rowsCount];
-        for(int j = 0; j < rowsCount; j++) {
-            column[j] = matrix[j][i];
-        }
-        return column;
+        return Arrays.stream(matrix).map(row -> row[i]).mapToInt(Integer::valueOf).toArray();
     }
 }
