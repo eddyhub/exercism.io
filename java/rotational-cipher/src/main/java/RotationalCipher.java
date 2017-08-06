@@ -7,14 +7,12 @@ public class RotationalCipher {
     }
 
     public String rotate(String text) {
-        return text.chars().map(operand -> {
-            if (operand > 64 && operand < 91) {
-                return operand + shift > 90 ? operand + shift - 90 + 64 : operand + shift;
+        return text.chars().map(ch -> {
+            if (Character.isLetter(ch)) {
+                char a = Character.isUpperCase(ch) ? 'A' : 'a';
+                return ((ch - a) + this.shift) % 26 + a;
             }
-            if (operand > 96 && operand < 123) {
-                return operand + shift > 122 ? operand + shift - 122 + 96 : operand + shift;
-            }
-            return operand;
+            return ch;
         }).collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
     }
 }
