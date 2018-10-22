@@ -9,7 +9,7 @@ import (
 func Convert(num int) string {
 	var result string
 	if num%3 == 0 {
-		result += "Pling"
+		result = "Pling"
 	}
 	if num%5 == 0 {
 		result += "Plang"
@@ -18,7 +18,7 @@ func Convert(num int) string {
 		result += "Plong"
 	}
 	if len(result) == 0 {
-		result += strconv.Itoa(num)
+		result = strconv.Itoa(num)
 	}
 	return result
 }
